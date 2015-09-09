@@ -12,12 +12,14 @@ module RedshiftCsv; class Output;
   end
 
   def query_results
-    @query_results = Connection.new.run(escaped_query)
+    @query_results ||= Connection.new.run(escaped_query)
+  end
+
+  def header
+    query_results.first.keys
   end
 
   def generate_csv
-    header = query_results.first.keys
-
     CSV.open(file_path, "wb") do |csv|
       csv << header
 
