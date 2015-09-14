@@ -7,12 +7,12 @@ module RedshiftCsv; class Output;
     @file_path = file_path
   end
 
-  def escaped_query
-    query.gsub("'", "\\\\'")
-  end
+  # def escaped_query
+  #   query.gsub("'", "\\\\'")
+  # end
 
   def query_results
-    @query_results ||= Connection.new.run(escaped_query)
+    @query_results ||= Connection.new.run(query)
   end
 
   def header
