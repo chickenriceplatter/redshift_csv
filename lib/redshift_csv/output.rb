@@ -7,16 +7,16 @@ module RedshiftCsv; class Output;
     @file_path = file_path
   end
 
-  # def escaped_query
-  #   query.gsub("'", "\\\\'")
-  # end
-
   def query_results
     @query_results ||= Connection.new.run(query)
   end
 
   def header
-    query_results.first.keys
+    results? ? query_results.first.keys : []
+  end
+  
+  def results?
+    query_results.ntuples > 0
   end
 
   def generate_csv
